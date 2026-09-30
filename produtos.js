@@ -103,8 +103,12 @@
   const whatsappStatus = document.getElementById("whatsapp-status");
   const toast = document.getElementById("toast");
   const year = document.getElementById("current-year");
-  const menuButton = document.querySelector(".catalog-menu-button");
-  const menu = document.querySelector(".catalog-menu");
+  const menuButton = document.querySelector(".parts-menu-button");
+  const menu = document.querySelector(".parts-nav");
+  const header = document.querySelector(".parts-header");
+  const miniCartOpen = document.getElementById("mini-cart-open");
+  const miniCartCount = document.getElementById("mini-cart-count");
+  const backToTop = document.getElementById("parts-back-to-top");
 
   const vehicleFields = {
     brand: document.getElementById("vehicle-brand"),
@@ -180,19 +184,19 @@
       const isAdded = Boolean(cart[product.id]);
       return `
         <article class="product-card">
-          <span class="product-badge">Demonstração</span>
           <div class="product-visual">${ICONS[product.icon]}</div>
           <div class="product-body">
             <p class="product-category">${product.category}</p>
             <h3>${product.name}</h3>
             <p class="product-description">${product.description}</p>
+            <p class="product-compatibility">Compatibilidade confirmada de acordo com o veículo.</p>
             <div class="product-meta">
               <div class="product-price">
-                <small>Preço</small>
+                <small>Valor</small>
                 <strong>Sob consulta</strong>
               </div>
               <button class="add-cart-button ${isAdded ? "is-added" : ""}" type="button" data-add="${product.id}">
-                ${isAdded ? "Adicionar mais" : "Adicionar"}
+                ${isAdded ? "Adicionar mais" : "Adicionar ao carrinho"}
               </button>
             </div>
           </div>
@@ -234,6 +238,7 @@
     const quantity = totalQuantity();
 
     cartCount.textContent = quantity;
+    if (miniCartCount) miniCartCount.textContent = quantity;
     cartTotalItems.textContent = quantity;
     cartEmpty.hidden = entries.length !== 0;
     cartWhatsapp.disabled = entries.length === 0;
@@ -335,9 +340,20 @@
   });
 
   cartTrigger.addEventListener("click", openCart);
+  miniCartOpen?.addEventListener("click", openCart);
   cartClose.addEventListener("click", closeCart);
   cartOverlay.addEventListener("click", closeCart);
   cartWhatsapp.addEventListener("click", sendWhatsapp);
+
+  backToTop?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  const updateHeader = () => {
+    header?.classList.toggle("is-scrolled", window.scrollY > 24);
+  };
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeCart();
