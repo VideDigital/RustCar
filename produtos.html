@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#050505" />
+  <title>Peças & Acessórios | Rust Car</title>
+  <meta name="description" content="Consulte peças e acessórios automotivos com a Rust Car. Monte seu carrinho de consulta e envie os itens diretamente pelo WhatsApp." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://videdigital.github.io/RustCar/produtos.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:title" content="Peças & Acessórios | Rust Car" />
+  <meta property="og:description" content="Selecione os itens, monte sua consulta e envie tudo para a Rust Car pelo WhatsApp." />
+  <meta property="og:url" content="https://videdigital.github.io/RustCar/produtos.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050505'/%3E%3Ctext x='32' y='41' font-family='Arial' font-size='26' font-weight='700' text-anchor='middle' fill='white'%3ERC%3C/text%3E%3C/svg%3E" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="produtos.css" />
+</head>
+<body class="catalog-page">
+  <header class="catalog-header">
+    <div class="container catalog-nav">
+      <a class="brand" href="index.html" aria-label="Rust Car — início">
+        <span class="brand-name">RUST CAR</span>
+        <span class="brand-dot"></span>
+      </a>
+
+      <button class="catalog-menu-button" type="button" aria-expanded="false" aria-controls="catalog-menu" aria-label="Abrir menu">
+        <span></span><span></span>
+      </button>
+
+      <nav class="catalog-menu" id="catalog-menu">
+        <a href="index.html">Início</a>
+        <a href="index.html#servicos">Serviços</a>
+        <a href="index.html#sobre">Sobre</a>
+        <a class="is-active" href="produtos.html">Peças & Acessórios</a>
+        <a href="index.html#contato">Contato</a>
+      </nav>
+
+      <button class="cart-trigger" id="cart-trigger" type="button" aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H7M10 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm8 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg>
+        <span>Carrinho</span>
+        <strong id="cart-count">0</strong>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="catalog-hero">
+      <div class="container catalog-hero-grid">
+        <div>
+          <p class="eyebrow">PEÇAS & ACESSÓRIOS</p>
+          <h1>Encontre o que precisa.<br><span>Consulte pelo WhatsApp.</span></h1>
+          <p>Escolha os itens, informe seu veículo e envie tudo de uma vez para a Rust Car. A disponibilidade, compatibilidade e valores são confirmados no atendimento.</p>
+        </div>
+
+        <div class="catalog-hero-card">
+          <span class="catalog-hero-number">01</span>
+          <div>
+            <strong>Selecione os itens</strong>
+            <p>Adicione ao carrinho o que deseja consultar.</p>
+          </div>
+          <span class="catalog-hero-number">02</span>
+          <div>
+            <strong>Informe seu veículo</strong>
+            <p>Marca, modelo e ano ajudam na conferência.</p>
+          </div>
+          <span class="catalog-hero-number">03</span>
+          <div>
+            <strong>Envie pelo WhatsApp</strong>
+            <p>A Rust Car recebe sua lista organizada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-section">
+      <div class="container">
+        <div class="catalog-toolbar">
+          <label class="search-box" for="product-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            <input id="product-search" type="search" placeholder="Buscar peça ou acessório..." autocomplete="off" />
+          </label>
+
+          <div class="category-filter" id="category-filter" aria-label="Categorias"></div>
+        </div>
+
+        <div class="catalog-info">
+          <div>
+            <strong id="product-result-count">0 itens</strong>
+            <span>Catálogo demonstrativo</span>
+          </div>
+          <p>Os itens abaixo são exemplos para validar a experiência da loja. Estoque, marcas, aplicações e preços precisam ser confirmados pela Rust Car antes da versão final.</p>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+
+        <div class="empty-state" id="empty-state" hidden>
+          <strong>Nenhum item encontrado.</strong>
+          <p>Tente outro termo ou selecione uma categoria diferente.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="vehicle-section">
+      <div class="container vehicle-panel">
+        <div class="vehicle-copy">
+          <p class="eyebrow">COMPATIBILIDADE</p>
+          <h2>Qual é o seu carro?</h2>
+          <p>Preencher esses dados ajuda a Rust Car a conferir se a peça é compatível com o veículo antes de confirmar o pedido.</p>
+        </div>
+
+        <div class="vehicle-form">
+          <label>
+            <span>Marca</span>
+            <input id="vehicle-brand" type="text" placeholder="Ex.: Volkswagen" />
+          </label>
+          <label>
+            <span>Modelo</span>
+            <input id="vehicle-model" type="text" placeholder="Ex.: Golf" />
+          </label>
+          <label>
+            <span>Ano</span>
+            <input id="vehicle-year" type="text" inputmode="numeric" placeholder="Ex.: 2021" />
+          </label>
+          <label>
+            <span>Motor / versão <small>(opcional)</small></span>
+            <input id="vehicle-version" type="text" placeholder="Ex.: 1.4 TSI" />
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-cta">
+      <div class="container catalog-cta-panel">
+        <div>
+          <p class="eyebrow">NÃO ENCONTROU?</p>
+          <h2>Peça uma consulta diretamente.</h2>
+          <p>Mesmo que o item ainda não esteja no catálogo, você pode falar com a Rust Car e informar qual peça está procurando.</p>
+        </div>
+        <a class="button button-primary js-catalog-whatsapp" href="index.html#contato">Consultar pelo WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>RUST CAR</strong>
+        <p>Centro de Estética Automotiva</p>
+      </div>
+      <div>
+        <p>Avenida Fagundes de Oliveira, 227<br>Piraporinha — Diadema/SP</p>
+      </div>
+      <div class="footer-end">
+        <a href="index.html">Voltar para o site</a>
+        <p>© <span id="current-year"></span> Rust Car.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cart-overlay" hidden></div>
+
+  <aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-label="Carrinho de consulta">
+    <div class="cart-head">
+      <div>
+        <span>RUST CAR</span>
+        <h2>Seu carrinho</h2>
+      </div>
+      <button id="cart-close" type="button" aria-label="Fechar carrinho">×</button>
+    </div>
+
+    <div class="cart-body">
+      <div class="cart-items" id="cart-items"></div>
+
+      <div class="cart-empty" id="cart-empty">
+        <div class="cart-empty-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.1 10.1a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 7H7"/></svg>
+        </div>
+        <strong>Seu carrinho está vazio.</strong>
+        <p>Adicione itens do catálogo para montar sua consulta.</p>
+      </div>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-summary">
+        <span>Itens selecionados</span>
+        <strong id="cart-total-items">0</strong>
+      </div>
+      <p class="cart-note">O carrinho não realiza pagamento. Ele envia a lista selecionada para confirmação de preço, disponibilidade e compatibilidade.</p>
+      <button class="cart-whatsapp-button" id="cart-whatsapp" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.52 0 .18 5.34.18 11.9c0 2.1.55 4.15 1.6 5.96L.08 24l6.3-1.65a11.9 11.9 0 0 0 5.69 1.45h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.23-6.17-3.46-8.42Z"/></svg>
+        Enviar consulta no WhatsApp
+      </button>
+      <p class="whatsapp-status" id="whatsapp-status" hidden>O número oficial do WhatsApp ainda será configurado nesta demonstração.</p>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="produtos.js"></script>
+</body>
+</html>
