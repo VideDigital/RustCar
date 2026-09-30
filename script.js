@@ -1,17 +1,19 @@
 (() => {
   // ============================================================
   // CONFIGURAÇÃO RÁPIDA
-  // Quando você tiver o WhatsApp oficial, coloque somente números:
+  // Coloque o WhatsApp oficial somente com números.
   // Exemplo: 5511999999999
   // ============================================================
   const WHATSAPP_NUMBER = "";
   const WHATSAPP_MESSAGE = "Olá! Vim pelo site da Rust Car e gostaria de solicitar uma avaliação do meu veículo.";
-  const INSTAGRAM_URL = "https://www.instagram.com/_rustcar/";
 
   const header = document.querySelector('.site-header');
   const menuButton = document.querySelector('.menu-button');
   const nav = document.querySelector('.nav');
-  const contactLinks = document.querySelectorAll('.js-contact');
+  const navContact = document.querySelector('.nav-contact');
+  const navContactToggle = document.querySelector('.nav-contact-toggle');
+  const whatsappLinks = document.querySelectorAll('.js-whatsapp');
+  const backToTop = document.getElementById('back-to-top');
   const year = document.getElementById('current-year');
 
   if (year) {
@@ -27,13 +29,18 @@
   updateHeader();
   window.addEventListener('scroll', updateHeader, { passive: true });
 
-  // Menu mobile.
+  // Menu principal no mobile.
   if (menuButton && nav) {
     menuButton.addEventListener('click', () => {
       const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
       menuButton.setAttribute('aria-expanded', String(!isOpen));
       nav.classList.toggle('is-open', !isOpen);
       document.body.classList.toggle('menu-open', !isOpen);
+
+      if (isOpen && navContact) {
+        navContact.classList.remove('is-open');
+        navContactToggle?.setAttribute('aria-expanded', 'false');
+      }
     });
 
     nav.querySelectorAll('a').forEach((link) => {
@@ -41,29 +48,64 @@
         menuButton.setAttribute('aria-expanded', 'false');
         nav.classList.remove('is-open');
         document.body.classList.remove('menu-open');
+        navContact?.classList.remove('is-open');
+        navContactToggle?.setAttribute('aria-expanded', 'false');
       });
     });
   }
 
-  // CTA: usa WhatsApp quando o número estiver configurado.
-  const whatsapp = String(WHATSAPP_NUMBER).replace(/\D/g, '');
-  const whatsappUrl = whatsapp
-    ? `https://wa.me/${whatsapp}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
-    : INSTAGRAM_URL;
+  // Menu de contato no header: WhatsApp + Instagram.
+  if (navContact && navContactToggle) {
+    navContactToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const isOpen = navContact.classList.toggle('is-open');
+      navContactToggle.setAttribute('aria-expanded', String(isOpen));
+    });
 
-  contactLinks.forEach((link) => {
+    document.addEventListener('click', (event) => {
+      if (navContact.contains(event.target)) return;
+      navContact.classList.remove('is-open');
+      navContactToggle.setAttribute('aria-expanded', 'false');
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      navContact.classList.remove('is-open');
+      navContactToggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  // WhatsApp.
+  // Enquanto o número estiver vazio, os botões levam à seção de contato.
+  // Assim nenhum botão abre um destino incorreto.
+  const whatsappNumber = String(WHATSAPP_NUMBER).replace(/\D/g, '');
+  const whatsappUrl = whatsappNumber
+    ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
+    : '#contato';
+
+  whatsappLinks.forEach((link) => {
     link.href = whatsappUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
 
-    if (whatsapp) {
-      if (/instagram/i.test(link.textContent)) {
-        link.textContent = 'Falar no WhatsApp';
-      }
-    } else if (/solicitar avaliação/i.test(link.textContent)) {
-      link.textContent = 'Falar com a Rust Car';
+    if (whatsappNumber) {
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.classList.remove('is-pending');
+    } else {
+      link.removeAttribute('target');
+      link.removeAttribute('rel');
+      link.classList.add('is-pending');
     }
   });
+
+  // Voltar ao topo — usa JavaScript em vez de depender apenas da âncora.
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 
   // Animações leves na rolagem.
   const revealElements = document.querySelectorAll('.reveal');
