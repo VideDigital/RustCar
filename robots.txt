@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Atualize o domínio antes da publicação.
-Sitemap: https://SEU-DOMINIO-AQUI.com.br/sitemap.xml
