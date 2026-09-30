@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://videdigital.github.io/RustCar/sitemap.xml
